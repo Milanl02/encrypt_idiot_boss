@@ -1,7 +1,8 @@
-<h1>Your Idiot Boss v1</h1>
+<h1>Your Idiot Boss v2</h1>
 
-<h2>This is v1 of the program.</h2>
+<h2>This is v2 of the program.</h2>
 
+<h2>This program loops through all of the files in the 'user_profiles' directory, decrypts and re-encrypts them, and then saves the file with its same name in a new directory called 'new_user_profiles'.</h2>
 <h2>Your idiot boss fell for a phishing exploit and had his private RSA key stolen from his laptop. All 1,000 of your customer files were encrypted using your boss’ public/private key pair so that information is in danger. You have been tasked with decrypting the existing files and then RE-encrypting them with a new key.</h2>
 
 # My Idiot Boss - Starter Code

@@ -59,25 +59,29 @@ def main():
     # Obtain a copy of the new_public_key:
     new_public_key = obtain_new_public_key('new_public_key.pem')
 
-    # Use the old_private_key to decrypt ONE of the customer files in the user_profiles directory:
-     # File name:
-    file_name = 'aaron_diaz.bin'
-    with open(f'user_profiles/{file_name}', 'rb') as file:
-        encrypted_data = file.read()
-
-    decrypted_msg = decrypt_message(encrypted_data, old_private_key)
-    print(f'Decrypted File Contents:\n{ utf8(decrypted_msg) }')
-
-    # Use the new_public_key to encrypt the customer data:
-    print("\n")
-    encrypted_msg = encrypt_message(decrypted_msg, new_public_key)
-    print(f'Encrypted with new key:\n{ utf8(encrypted_msg) }\n')
-
-    # Create a directory named new_user_profiles:
+   # Create a directory named new_user_profiles:
     directory_name = 'new_user_profiles'
     create_directory = os.mkdir(directory_name)
-    # Save the newly-encrypted data into a file in a directory named new_user_profiles:
-    store_new_encrypted_data(directory_name, file_name, encrypted_msg)
+
+    # Use the old_private_key to decrypt ALL of the customer files in the user_profiles directory:
+    # Directory Name:
+    name_of_directory = 'user_profiles'
+
+    for fn in os.listdir(name_of_directory):
+        path_of_file = os.path.join(name_of_directory, fn)
+        with open(path_of_file, 'rb') as file:
+            encrypted_data = file.read()
+
+        # Use the old_private_key to decrypt the customer data:
+        decrypted_msg = decrypt_message(encrypted_data, old_private_key)
+
+        # Use the new_public_key to encrypt the customer data:
+        encrypted_msg = encrypt_message(decrypted_msg, new_public_key)
+
+        # Save the newly-encrypted data into a file in a directory named new_user_profiles:
+        store_new_encrypted_data(directory_name, fn, encrypted_msg)
+
+    print(f"All files in '{name_of_directory}' directory have been decrypted and re-encrypted with a new key! Files were saved in a new directory called '{directory_name}'.")
 
 if __name__ == "__main__":
     main()
